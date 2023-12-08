@@ -40,7 +40,7 @@ struct TodoMainView: View {
                     .frame(width: 200)
                     .font(.system(size: 25))
                     .fontWeight(.bold)
-
+                
                 Spacer()
                 
                 Image("person")
@@ -129,6 +129,9 @@ struct TodoMainView: View {
                         }
                     }
                 }
+                .listRowInsets(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0))
+                .cornerRadius(10)
+                
                 Section(header: Text("Not Completed")) {
                     ForEach($notDoneTodos) { $todo in
                         TodoItemView(todo: $todo) {
@@ -139,12 +142,14 @@ struct TodoMainView: View {
                         }
                     }
                 }
+                .listRowInsets(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0))
+                .cornerRadius(10)
             }
             .listStyle(PlainListStyle())
+            .cornerRadius(10)
         }
         .padding()
         .onAppear {
-            
             completedTasks = doneTodos.filter { $0.isDone }.count
         }
         
@@ -162,12 +167,19 @@ struct TodoItemView: View {
     @Binding var todo: TodoItem
     var onButtonTap: () -> Void
     
+    private let randomColors: [Color] = [.red, .blue, .green, .orange, .purple]
+
     var body: some View {
         
         HStack {
+            Rectangle()
+                .frame(width: 10)
+                .foregroundColor(randomColors.randomElement() ?? .green)
+                .alignmentGuide(.leading, computeValue: { d in d[.leading] })
+
+            
             VStack(alignment: .leading, spacing: 5) {
                 Text(todo.todo)
-                
                 HStack {
                     Image(systemName: "calendar")
                         .resizable()
@@ -188,16 +200,16 @@ struct TodoItemView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 15)
+                        .frame(width: 20, height: 20)
                         .foregroundColor(.green)
-                        
                 } else {
                     Image(systemName: "circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 15)
+                        .frame(width: 20, height: 20)
                 }
             }
+            .padding(.horizontal)
         }
     }
 }
