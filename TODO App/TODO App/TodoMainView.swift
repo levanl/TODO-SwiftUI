@@ -156,25 +156,23 @@ struct TodoMainView: View {
     }
 }
 
-#Preview {
-    TodoMainView()
-}
-
-
-
 struct TodoItemView: View {
     
     @Binding var todo: TodoItem
     var onButtonTap: () -> Void
     
-    private let randomColors: [Color] = [.red, .blue, .green, .orange, .purple]
-
+    @Environment(\.colorScheme) var colorScheme
+    
+    var itemColor: Color = {
+        Color(red: Double.random(in: 0...1), green: Double.random(in: 0...1), blue: Double.random(in: 0...1))
+    }()
+    
     var body: some View {
         
         HStack {
             Rectangle()
                 .frame(width: 10)
-                .foregroundColor(randomColors.randomElement() ?? .green)
+                .foregroundColor(itemColor)
                 .alignmentGuide(.leading, computeValue: { d in d[.leading] })
 
             
@@ -189,7 +187,6 @@ struct TodoItemView: View {
                     Text("4 oct")
                 }
             }
-            
             Spacer()
             
             Button(action: {
@@ -210,6 +207,32 @@ struct TodoItemView: View {
                 }
             }
             .padding(.horizontal)
+        }
+        .background(itemBackgroundColor)
+    }
+    
+    private var itemBackgroundColor: Color {
+            switch colorScheme {
+            case .dark:
+                return Color(red: 31/255, green: 31/255, blue: 31/255)
+            case .light:
+                return .white
+            @unknown default:
+                return .white
+            }
+        }
+}
+
+struct TodoMainView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            TodoMainView()
+                .preferredColorScheme(.light)
+                .previewDisplayName("Light Mode")
+            
+            TodoMainView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
         }
     }
 }
