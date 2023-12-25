@@ -11,6 +11,8 @@
 		C42D9C652B22E8F700A203CD /* TodoMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42D9C642B22E8F700A203CD /* TodoMainView.swift */; };
 		C42D9C672B22E8F800A203CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9C662B22E8F800A203CD /* Assets.xcassets */; };
 		C42D9C6A2B22E8F800A203CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9C692B22E8F800A203CD /* Preview Assets.xcassets */; };
+		C43AC6CA2B373BA70017DAC6 /* EffectsLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = C43AC6C92B373BA70017DAC6 /* EffectsLibrary */; };
+		C4AF48B32B39D652003FB399 /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AF48B22B39D652003FB399 /* CustomDialog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,7 @@
 		C42D9C642B22E8F700A203CD /* TodoMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMainView.swift; sourceTree = "<group>"; };
 		C42D9C662B22E8F800A203CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42D9C692B22E8F800A203CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C4AF48B22B39D652003FB399 /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C43AC6CA2B373BA70017DAC6 /* EffectsLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +59,7 @@
 				C42D9C642B22E8F700A203CD /* TodoMainView.swift */,
 				C42D9C662B22E8F800A203CD /* Assets.xcassets */,
 				C42D9C682B22E8F800A203CD /* Preview Content */,
+				C4AF48B22B39D652003FB399 /* CustomDialog.swift */,
 			);
 			path = "TODO App";
 			sourceTree = "<group>";
@@ -83,6 +88,9 @@
 			dependencies = (
 			);
 			name = "TODO App";
+			packageProductDependencies = (
+				C43AC6C92B373BA70017DAC6 /* EffectsLibrary */,
+			);
 			productName = "TODO App";
 			productReference = C42D9C5F2B22E8F700A203CD /* TODO App.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +119,9 @@
 				Base,
 			);
 			mainGroup = C42D9C562B22E8F700A203CD;
+			packageReferences = (
+				C43AC6C82B373BA70017DAC6 /* XCRemoteSwiftPackageReference "effects-library" */,
+			);
 			productRefGroup = C42D9C602B22E8F700A203CD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42D9C652B22E8F700A203CD /* TodoMainView.swift in Sources */,
+				C4AF48B32B39D652003FB399 /* CustomDialog.swift in Sources */,
 				C42D9C632B22E8F700A203CD /* TODO_AppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +356,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C43AC6C82B373BA70017DAC6 /* XCRemoteSwiftPackageReference "effects-library" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GetStream/effects-library";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C43AC6C92B373BA70017DAC6 /* EffectsLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C43AC6C82B373BA70017DAC6 /* XCRemoteSwiftPackageReference "effects-library" */;
+			productName = EffectsLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C42D9C572B22E8F700A203CD /* Project object */;
 }
