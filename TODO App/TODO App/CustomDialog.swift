@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomDialog: View {
-    
+    @State private var newTodo: String = ""
     let title: String
     let message: String
     let buttonTitle: String
@@ -28,18 +28,25 @@ struct CustomDialog: View {
                     .font(.title2)
                     .bold()
                     .padding()
-                
-                Text(message)
-                    .font(.body)
-                
+                NavigationView {
+                    Form {
+                        Section(header: Text("Todo Item")) {
+                            TextField("Todo", text: $newTodo)
+                        }
+                        .listRowBackground(Color(red: 246/255, green: 246/255, blue: 246/255))
+                            
+                    }
+                    .background(Color.white)
+                    .scrollContentBackground(.hidden)
+                }
                 Button {
-                    // TODO:
+                    addTodo()
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.green)
                         
-                        Text(buttonTitle)
+                        Text("Add TODO")
                             .font(.system(size: 16, weight: .bold))
                             .foregroundStyle(.white)
                             .padding()
@@ -82,12 +89,24 @@ struct CustomDialog: View {
         }
         .ignoresSafeArea()
     }
-        
-        func close() {
-            withAnimation(.spring()) {
-                offset = 1000
-                isDialogActive = false
-            }
+    
+    func close() {
+        withAnimation(.spring()) {
+            offset = 1000
+            isDialogActive = false
+        }
+    }
+    
+    func addTodo() {
+            guard !newTodo.isEmpty else { return }
+
+        let todoItem = TodoItem(todo: newTodo, isDone: false)
+            // Add your logic to handle the new todo item, e.g., append it to an array or save it to a database
+            print("Added todo: \(todoItem)")
+
+            
+            newTodo = ""
+            
         }
     
 }

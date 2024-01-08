@@ -14,33 +14,21 @@ struct TodoItem: Identifiable, Hashable {
 }
 
 struct TodoMainView: View {
+    @StateObject private var viewModel = TodoMainViewModel()
     
-    @State private var doneTodos = [
-        TodoItem(todo: "Task 1", isDone: true),
-        TodoItem(todo: "Task 2", isDone: true),
-        TodoItem(todo: "Task 6", isDone: true)
-    ]
-    
-    @State private var notDoneTodos = [
-        TodoItem(todo: "Task 3", isDone: false),
-        TodoItem(todo: "Task 4", isDone: false),
-        TodoItem(todo: "Task 8", isDone: false)
-    ]
-    
-    @State private var completedTasks = 0
     @State var isDialogActive: Bool = false
     
     
     private var progress: Double {
-        let totalTasks = doneTodos.count + notDoneTodos.count
-        return totalTasks > 0 ? Double(doneTodos.filter { $0.isDone }.count) / Double(totalTasks) * 100 : 0
+        let totalTasks = viewModel.doneTodos.count + viewModel.notDoneTodos.count
+        return totalTasks > 0 ? Double(viewModel.doneTodos.filter { $0.isDone }.count) / Double(totalTasks) * 100 : 0
     }
     
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Text(notDoneTodos.isEmpty ? "All the tasks are complete" : "You have \(notDoneTodos.count) tasks to complete")
+                    Text(viewModel.notDoneTodos.isEmpty ? "All the tasks are complete" : "You have \(viewModel.notDoneTodos.count) tasks to complete")
                         .frame(width: 200)
                         .font(.system(size: 25))
                         .fontWeight(.bold)
@@ -56,21 +44,21 @@ struct TodoMainView: View {
                 .padding(.vertical)
                 
                 Button(action: {
-                    if notDoneTodos.isEmpty {
-                        notDoneTodos = doneTodos
-                        doneTodos.removeAll()
-                        for index in notDoneTodos.indices {
-                            notDoneTodos[index].isDone = false
+                    if viewModel.notDoneTodos.isEmpty {
+                        viewModel.notDoneTodos = viewModel.doneTodos
+                        viewModel.doneTodos.removeAll()
+                        for index in viewModel.notDoneTodos.indices {
+                            viewModel.notDoneTodos[index].isDone = false
                         }
                     } else {
-                        for index in notDoneTodos.indices {
-                            notDoneTodos[index].isDone = true
-                            doneTodos.append(notDoneTodos[index])
+                        for index in viewModel.notDoneTodos.indices {
+                            viewModel.notDoneTodos[index].isDone = true
+                            viewModel.doneTodos.append(viewModel.notDoneTodos[index])
                         }
-                        notDoneTodos.removeAll()
+                        viewModel.notDoneTodos.removeAll()
                     }
                 }) {
-                    Text(notDoneTodos.isEmpty ? "Reset All" : "Complete All")
+                    Text(viewModel.notDoneTodos.isEmpty ? "Reset All" : "Complete All")
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .foregroundColor(.white)
@@ -101,7 +89,7 @@ struct TodoMainView: View {
                         Spacer()
                     }
                     HStack {
-                        Text("\(doneTodos.filter { $0.isDone }.count)/\(doneTodos.count + notDoneTodos.count) Task Completed")
+                        Text("\(viewModel.doneTodos.filter { $0.isDone }.count)/\(viewModel.doneTodos.count + viewModel.notDoneTodos.count) Task Completed")
                             .foregroundColor(.white)
                         Spacer()
                     }
@@ -123,31 +111,32 @@ struct TodoMainView: View {
                 Spacer()
                 
                 List {
-                    Section(header: Text("Completed")) {
-                        ForEach($doneTodos) { $todo in
+                    Section(header: Text("Not Completed")) {
+                        ForEach($viewModel.notDoneTodos) { $todo in
                             TodoItemView(todo: $todo) {
                                 todo.isDone.toggle()
-                                notDoneTodos.append(todo)
-                                doneTodos.removeAll { $0.id == todo.id }
-                                completedTasks -= 1
+                                viewModel.doneTodos.append(todo)
+                                viewModel.notDoneTodos.removeAll { $0.id == todo.id }
+                                viewModel.completedTasks += 1
                             }
                         }
                     }
                     .listRowInsets(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0))
                     .cornerRadius(10)
                     
-                    Section(header: Text("Not Completed")) {
-                        ForEach($notDoneTodos) { $todo in
+                    Section(header: Text("Completed")) {
+                        ForEach($viewModel.doneTodos) { $todo in
                             TodoItemView(todo: $todo) {
                                 todo.isDone.toggle()
-                                doneTodos.append(todo)
-                                notDoneTodos.removeAll { $0.id == todo.id }
-                                completedTasks += 1
+                                viewModel.notDoneTodos.append(todo)
+                                viewModel.doneTodos.removeAll { $0.id == todo.id }
+                                viewModel.completedTasks -= 1
                             }
                         }
                     }
                     .listRowInsets(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0))
                     .cornerRadius(10)
+                    
                 }
                 .listStyle(PlainListStyle())
                 .cornerRadius(10)
@@ -174,10 +163,10 @@ struct TodoMainView: View {
                 CustomDialog(title: "Todo", message: "do todo", buttonTitle: "Save", action: {}, isDialogActive: $isDialogActive)
                     .zIndex(1)
             }
-
+            
         }
         .onAppear {
-            completedTasks = doneTodos.filter { $0.isDone }.count
+            viewModel.completedTasks = viewModel.doneTodos.filter { $0.isDone }.count
         }
     }
 }

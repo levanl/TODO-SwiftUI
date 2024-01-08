@@ -13,6 +13,7 @@
 		C42D9C6A2B22E8F800A203CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42D9C692B22E8F800A203CD /* Preview Assets.xcassets */; };
 		C43AC6CA2B373BA70017DAC6 /* EffectsLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = C43AC6C92B373BA70017DAC6 /* EffectsLibrary */; };
 		C4AF48B32B39D652003FB399 /* CustomDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AF48B22B39D652003FB399 /* CustomDialog.swift */; };
+		C4B231BF2B4C2A5600222CDA /* TodoMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B231BE2B4C2A5600222CDA /* TodoMainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		C42D9C662B22E8F800A203CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42D9C692B22E8F800A203CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C4AF48B22B39D652003FB399 /* CustomDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDialog.swift; sourceTree = "<group>"; };
+		C4B231BE2B4C2A5600222CDA /* TodoMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				C42D9C662B22E8F800A203CD /* Assets.xcassets */,
 				C42D9C682B22E8F800A203CD /* Preview Content */,
 				C4AF48B22B39D652003FB399 /* CustomDialog.swift */,
+				C4B231BE2B4C2A5600222CDA /* TodoMainViewModel.swift */,
 			);
 			path = "TODO App";
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42D9C652B22E8F700A203CD /* TodoMainView.swift in Sources */,
+				C4B231BF2B4C2A5600222CDA /* TodoMainViewModel.swift in Sources */,
 				C4AF48B32B39D652003FB399 /* CustomDialog.swift in Sources */,
 				C42D9C632B22E8F700A203CD /* TODO_AppApp.swift in Sources */,
 			);
